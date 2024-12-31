@@ -2,13 +2,18 @@ variable "domain_name" {}
 variable "aws_lb_dns_name" {}
 variable "aws_lb_zone_id" {}
 
-data "aws_route53_zone" "dev_proj_1_mdanielyan.com" {
+# data "aws_route53_zone" "dev_proj_1_mdanielyan_com" {
+#   name         = "mdanielyan.com"
+#   private_zone = false
+# }
+
+data "aws_route53_zone" "dev_proj_1_mdanielyan_com" {
   name         = var.domain_name
   private_zone = false
 }
 
 resource "aws_route53_record" "lb_record" {
-  zone_id = data.aws_route53_zone.dev_proj_1_mdanielyan.com.zone_id
+  zone_id = data.aws_route53_zone.dev_proj_1_mdanielyan_com.zone_id
   name    = var.domain_name
   type    = "A"
 
@@ -20,5 +25,5 @@ resource "aws_route53_record" "lb_record" {
 }
 
 output "hosted_zone_id" {
-  value = data.aws_route53_zone.dev_proj_1_mdanielyan.com.zone_id
+  value = data.aws_route53_zone.dev_proj_1_mdanielyan_com.zone_id
 }
